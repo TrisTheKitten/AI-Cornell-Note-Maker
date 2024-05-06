@@ -11,3 +11,6 @@ This web application leverages the power of GPT-3.5 Turbo to generate Cornell no
 * **Intuitive user interface:** Easily input text, generate notes, and organize them within the app.
 * **Tailwind CSS styling:** Enjoy a modern and responsive design that adapts seamlessly to different screen sizes.
 * **JavaScript functionality:** Benefit from dynamic interactions and efficient data handling.
+
+- Access the app directly through this link: 
+- Alternatively, clone the repository and run it locally.
