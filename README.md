@@ -12,5 +12,5 @@ This web application leverages the power of GPT-3.5 Turbo to generate Cornell no
 * **Tailwind CSS styling:** Enjoy a modern and responsive design that adapts seamlessly to different screen sizes.
 * **JavaScript functionality:** Benefit from dynamic interactions and efficient data handling.
 
-- Access the app directly through this link: 
+- Access the app directly through this link: https://ai-cornell-note-maker.vercel.app
 - Alternatively, clone the repository and run it locally.
