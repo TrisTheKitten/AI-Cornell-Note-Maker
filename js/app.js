@@ -28,7 +28,15 @@ async function generateNote() {
   loadingSpinner.classList.remove('hidden');
 
   const formatInstructions = `
-Please format the response as follows:
+  Please format the response as follows:
+
+(What is Cornells Notes :
+  Notes: This is the main section of the page, where you will write down your notes from the lecture or reading.
+  Cues: This column on the left side of the page is for keywords, phrases, and questions. These cues will help you to organize your notes and remember the most important information.
+  Summary: This section at the bottom of the page is where you will write a brief summary of the main points of the lecture or reading. )
+  
+  USE ONLY SIMPLE ENGLISH WORDS AND BULLET POINTS
+  please don't include analogies in your notes )
 
 Cues:
 - [Bullet points for key topics or questions]
@@ -44,7 +52,6 @@ Notes:
 
 Summary:
 [A concise summary of the main points]
-
 
 `;
 
@@ -155,7 +162,23 @@ function displayNote(note) {
       }
     }
   });
+  const copyButtons = document.querySelectorAll('.copy-btn');
+  copyButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const targetId = button.dataset.target;
+      const targetElement = document.getElementById(targetId);
+      const text = targetElement.innerText;
+
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          alert('Content copied to clipboard!');
+        })
+        .catch((error) => {
+          console.error('Failed to copy content:', error);
+          alert('Failed to copy content. Please try again.');
+        });
+    });
+  });
 
   updateStatistics(contextInput.value, notesContent.innerText);
 }
-
