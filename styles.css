@@ -26,7 +26,7 @@ textarea,
 }
 
 .copy-btn {
-  background-color: gray;
+  background-color: rgb(3 166 120);
   border: none;
   color: white;
   width: 30px;
@@ -50,56 +50,6 @@ textarea,
   font-size: 16px;
 }
 
-
-.dark-mode-icon {
-  transition: color 0.3s ease, transform 0.5s ease;
-}
-
-.dark-mode-icon:hover {
-  color: #888;
-  transform: rotate(45deg);
-}
-
-body.dark-mode .dark-mode-icon {
-  color: #fff;
-  transform: rotate(0deg);
-}
-
-.dark-mode-icon.fa-sun {
-  color: #ffd700;
-}
-
-.dark-mode-icon.fa-moon {
-  color: #f0f0f0;
-}
-
-.rotate-animation {
-  animation: rotate 0.3s ease;
-  -webkit-animation: rotate 0.3s ease;
-}
-
-@keyframes rotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 40px;
-  height: 20px;
-}
-
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
 .slider {
   position: absolute;
   cursor: pointer;
@@ -119,28 +69,32 @@ body.dark-mode .dark-mode-icon {
   width: 16px;
   left: 2px;
   bottom: 2px;
-  background-color: white;
+  background-color: rgb(3 166 120);
   transition: 0.4s;
   border-radius: 50%;
 }
 
-.input-container {
-  position: relative;
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+.input-container label {
+  color: #fff;
+}
+
+.input-container input,
+.input-container textarea {
+  background-color: rgb(30 41 59);
+  color: #fff;
+  border-color: rgb(51 65 85);
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
   padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
 .character-count {
-  font-size: 12px;
-  color: white;
-  background-color: black;
-  border-radius: 10px;
-  padding: 2px 3px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  font-size: 0.75rem;
+  color: #d1d5db;
+  background-color: rgb(30 41 59);
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.5rem;
 }
 
 .button-container {
@@ -150,12 +104,27 @@ body.dark-mode .dark-mode-icon {
 }
 
 button {
-  border-radius: 20px;
-  padding: 10px 20px;
-  transition: all 0.3s ease;
+  border-radius: 0.375rem;
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  border: 1px solid;
+  border-color: rgb(55 65 81);
+  background-color: rgb(27 31 41);
+  color: rgb(3 166 120);
+  transition-duration: 0.15s;
+  transition-property: color, background-color, border-color, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
 }
 
 button:hover {
+  background-color: rgb(55 65 81);
+  color: rgb(3 166 120);
   transform: translateY(-2px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
@@ -182,18 +151,22 @@ button:hover {
   }
 }
 
-body.dark-mode {
-  background-color: #282929;
+body {
+  background-color: #1B1F29;
   color: #fff;
 }
 
-body.dark-mode .column {
-  background-color: rgba(29, 30, 30, 0.88);
+.column {
+  background-color: #1B1F29;
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
 }
 
-body.dark-mode input,
-body.dark-mode textarea {
-  background-color: rgba(29, 30, 30, 0.88);
+input,
+textarea {
+  background-color: #1B1F29;
   color: #fff;
 }
 
@@ -203,7 +176,7 @@ body.dark-mode textarea {
 
 .spinner {
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #3498db;
+  border-top: 4px solid rgb(3 166 120);
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -232,13 +205,6 @@ body.dark-mode textarea {
   flex: 2;
 }
 
-.column {
-  background-color: #f1f1f1;
-  padding: 20px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-
 .cue ul {
   list-style-type: disc;
   margin-left: 20px;
@@ -257,6 +223,34 @@ body.dark-mode textarea {
 .word {
   opacity: 0;
   animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.statistics {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgb(55, 65, 81);
+  background-color: rgb(27, 31, 41);
+  margin-top: 1rem;
+}
+
+.statistic {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statistic .label {
+  color: #a1a1aa;
+  font-size: 0.875rem;
+}
+
+.statistic .value {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 @keyframes fadeIn {
