@@ -17,7 +17,13 @@ generateBtn.addEventListener('click', generateNote);
 copyBtn.addEventListener('click', copyNoteToClipboard);
 
 async function generateNote() {
+  const apiKey = apiKeyInput.value;
   const context = contextInput.value;
+
+  if (apiKey.trim() === '' || context.trim() === '') {
+    alert('Please provide both the API key and context.');
+    return;
+  }
 
   loadingSpinner.classList.remove('hidden');
 
@@ -42,9 +48,9 @@ Summary:
 
 `;
 
-  const prompt = `${combinedContext}
+  const prompt = `${context}
 
-${formatInstructions}`;
+${formatInstructions}`;;
 
   try {
     const response = await axios.post(
@@ -82,7 +88,8 @@ ${formatInstructions}`;
   }
 
   loadingSpinner.classList.add('hidden');
-}
+  }
+
 
 async function copyNoteToClipboard() {
   const noteText = noteContent.innerText;
