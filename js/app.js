@@ -17,13 +17,7 @@ generateBtn.addEventListener('click', generateNote);
 copyBtn.addEventListener('click', copyNoteToClipboard);
 
 async function generateNote() {
-  const apiKey = apiKeyInput.value;
   const context = contextInput.value;
-
-  if (apiKey.trim() === '' || context.trim() === '') {
-    alert('Please provide both the API key and context.');
-    return;
-  }
 
   loadingSpinner.classList.remove('hidden');
 
@@ -35,17 +29,20 @@ Cues:
 
 Notes:
 - [Main topic 1]:
-  - [Subtopic 1]
-  - [Subtopic 2]
+  - [Subtopic 1 in details]
+  - [Subtopic 2 in details]
 - [Main topic 2]:
-  - [Subtopic 1]
-  - [Subtopic 2]
+  - [Subtopic 1 in details]
+  - [Subtopic 2 in details]
+-[Must include simplified notes of all the key-details in the original context]
 
 Summary:
 [A concise summary of the main points]
+
+
 `;
 
-  const prompt = `${context}
+  const prompt = `${combinedContext}
 
 ${formatInstructions}`;
 
@@ -98,6 +95,22 @@ async function copyNoteToClipboard() {
   }
 }
 
+const copyButtons = document.querySelectorAll('.copy-btn');
+
+function updateStatistics(originalContext, notesContent) {
+  const originalWords = originalContext.trim().split(/\s+/).length;
+  const outputWords = notesContent.trim().split(/\s+/).length;
+  const reducedWords = originalWords - outputWords;
+
+  const sentenceCount = notesContent.trim().split(/[.!?]+/).length - 1;
+
+  const readTime = Math.ceil(outputWords / 200);
+
+  document.getElementById('reduced-words').textContent = reducedWords;
+  document.getElementById('sentence-count').textContent = sentenceCount;
+  document.getElementById('read-time').textContent = `${readTime}:00`;
+}
+
 function displayNote(note) {
   const cueContent = document.getElementById('cue-content');
   const notesContent = document.getElementById('notes-content');
@@ -135,24 +148,7 @@ function displayNote(note) {
       }
     }
   });
+
+  updateStatistics(contextInput.value, notesContent.innerText);
 }
 
-const copyButtons = document.querySelectorAll('.copy-btn');
-const darkModeIcon = document.getElementById('dark-mode-icon');
-
-darkModeIcon.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  if (document.body.classList.contains('dark-mode')) {
-    darkModeIcon.classList.remove('fa-moon');
-    darkModeIcon.classList.add('fa-sun', 'rotate-animation');
-    setTimeout(() => {
-      darkModeIcon.classList.remove('rotate-animation');
-    }, 500);
-  } else {
-    darkModeIcon.classList.remove('fa-sun');
-    darkModeIcon.classList.add('fa-moon', 'rotate-animation');
-    setTimeout(() => {
-      darkModeIcon.classList.remove('rotate-animation');
-    }, 500);
-  }
-});
