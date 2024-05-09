@@ -1,3 +1,12 @@
+::selection {
+  background-color: #04644b;
+  color: #fff;
+}
+::-moz-selection {
+  background-color: #04644b;
+  color: #fff;
+}
+
 h1, h2, h3 {
   font-family: 'Rubik', sans-serif;
 }
@@ -26,24 +35,24 @@ textarea,
 }
 
 .copy-btn {
-  background-color: rgb(3 166 120);
+  background-color:  rgb(55 65 81);
   border: none;
-  color: white;
+  color: rgb(3 166 120);
   width: 30px;
   height: 30px;
-  border-radius: 0%;
+  border-radius: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  -webkit-border-radius:;
-  -moz-border-radius:;
-  -ms-border-radius:;
-  -o-border-radius:;
+  -webkit-border-radius: 20%;
+  -moz-border-radius: 20%;
+  -ms-border-radius: 20%;
+  -o-border-radius: 20%;
 }
 
 .copy-btn:hover {
-  background-color: #45a049;
+  background-color:  rgb(55 65 81);
 }
 
 .copy-btn i {
@@ -75,13 +84,13 @@ textarea,
 }
 
 .input-container label {
-  color: #fff;
+  color: #9ba2ae;
 }
 
 .input-container input,
 .input-container textarea {
   background-color: rgb(30 41 59);
-  color: #fff;
+  color: #9ba2ae;
   border-color: rgb(51 65 85);
   box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
   padding: 20px;
@@ -153,7 +162,7 @@ button:hover {
 
 body {
   background-color: #1B1F29;
-  color: #fff;
+  color: #9ba2ae;
 }
 
 .column {
@@ -167,7 +176,7 @@ body {
 input,
 textarea {
   background-color: #1B1F29;
-  color: #fff;
+  color: #9ba2ae;
 }
 
 .hidden {
@@ -248,7 +257,7 @@ textarea {
 }
 
 .statistic .value {
-  color: #fff;
+  color: #9ba2ae;
   font-size: 1rem;
   font-weight: bold;
 }
