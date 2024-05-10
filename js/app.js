@@ -19,6 +19,8 @@ copyBtn.addEventListener('click', copyNoteToClipboard);
 async function generateNote() {
   const apiKey = apiKeyInput.value;
   const context = contextInput.value;
+  const tone = document.getElementById('tone-select').value;
+  const length = document.getElementById('length-select').value;
 
   if (apiKey.trim() === '' || context.trim() === '') {
     alert('Please provide both the API key and context.');
@@ -30,13 +32,8 @@ async function generateNote() {
   const formatInstructions = `
   Please format the response as follows:
 
-(What is Cornells Notes :
-  Notes: This is the main section of the page, where you will write down your notes from the lecture or reading.
-  Cues: This column on the left side of the page is for keywords, phrases, and questions. These cues will help you to organize your notes and remember the most important information.
-  Summary: This section at the bottom of the page is where you will write a brief summary of the main points of the lecture or reading. )
-  
-  USE ONLY SIMPLE ENGLISH WORDS AND BULLET POINTS
-  please don't include analogies in your notes )
+-USE ONLY SIMPLE ENGLISH WORDS AND BULLET POINTS
+-please don't include analogies in your notes )
 
 Cues:
 - [Bullet points for key topics or questions]
@@ -55,9 +52,37 @@ Summary:
 
 `;
 
+  let toneInstruction = '';
+  switch (tone) {
+    case 'friendly':
+      toneInstruction = 'Please use a casual and friendly tone in the notes.';
+      break;
+    case 'formal':
+      toneInstruction = 'Please use a formal and academic tone in the notes.';
+      break;
+    default:
+      toneInstruction = '';
+  }
+
+  let lengthInstruction = '';
+  switch (length) {
+    case 'short':
+      lengthInstruction = 'Please keep the notes concise and straight to the point.';
+      break;
+    case 'long':
+      lengthInstruction = 'Please provide detailed and comprehensive notes.';
+      break;
+    default:
+      lengthInstruction = '';
+  }
+
   const prompt = `${context}
 
-${formatInstructions}`;;
+${formatInstructions}
+
+${toneInstruction}
+
+${lengthInstruction}`;
 
   try {
     const response = await axios.post(
@@ -95,8 +120,7 @@ ${formatInstructions}`;;
   }
 
   loadingSpinner.classList.add('hidden');
-  }
-
+}
 
 async function copyNoteToClipboard() {
   const noteText = noteContent.innerText;
@@ -118,11 +142,12 @@ function updateStatistics(originalContext, notesContent) {
 
   const sentenceCount = notesContent.trim().split(/[.!?]+/).length - 1;
 
-  const readTime = Math.ceil(outputWords / 200);
+  const averageReadingPace = 200; 
+  const readTime = Math.ceil(outputWords / averageReadingPace);
 
   document.getElementById('reduced-words').textContent = reducedWords;
   document.getElementById('sentence-count').textContent = sentenceCount;
-  document.getElementById('read-time').textContent = `${readTime}:00`;
+  document.getElementById('read-time').textContent = `${readTime.toString().padStart(2, '0')}:00`;
 }
 
 function displayNote(note) {
@@ -150,18 +175,35 @@ function displayNote(note) {
       currentSection = 'summary';
     } else {
       if (currentSection === 'cues') {
-        cueContent.innerHTML += `<li>${line.trim().slice(2)}</li>`;
+        if (line.startsWith('- ')) {
+          const listItem = document.createElement('li');
+          listItem.textContent = line.trim().slice(2);
+          cueContent.appendChild(listItem);
+        }
       } else if (currentSection === 'notes') {
         if (line.startsWith('- ')) {
-          notesContent.innerHTML += `<h4>${line.slice(2)}</h4>`;
+          const heading = document.createElement('h4');
+          heading.textContent = line.slice(2);
+          notesContent.appendChild(heading);
         } else if (line.startsWith('  - ')) {
-          notesContent.innerHTML += `<ul><li>${line.slice(4)}</li></ul>`;
+          const listItem = document.createElement('li');
+          listItem.textContent = line.slice(4);
+          
+          let lastElement = notesContent.lastElementChild;
+          if (!lastElement || lastElement.tagName !== 'UL') {
+            const unorderedList = document.createElement('ul');
+            unorderedList.appendChild(listItem);
+            notesContent.appendChild(unorderedList);
+          } else {
+            lastElement.appendChild(listItem);
+          }
         }
       } else if (currentSection === 'summary') {
-        summaryContent.innerHTML += `${line.trim()} `;
+        summaryContent.textContent += line.trim() + ' ';
       }
     }
   });
+
   const copyButtons = document.querySelectorAll('.copy-btn');
   copyButtons.forEach((button) => {
     button.addEventListener('click', () => {
