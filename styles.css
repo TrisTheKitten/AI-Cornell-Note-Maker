@@ -1,274 +1,110 @@
-::selection {
-  background-color: #04644b;
-  color: #fff;
-}
-::-moz-selection {
-  background-color: #04644b;
-  color: #fff;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Note Taker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Poppins:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">Developed by Tris</h1> 
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold">AI Cornell Notes Maker</h1>
+    </div>
 
-h1, h2, h3 {
-  font-family: 'Rubik', sans-serif;
-}
+<div class="mb-6 input-container">
+  <div class="mb-6 input-container">
+    <label for="api-key" class="block mb-2 font-bold">GPT 3.5 Turbo API Key:</label>
+    <input type="text" id="api-key" class="w-full px-4 py-2 border border-gray-300 rounded">
+  </div>
 
-button {
-  font-family: 'Poppins', sans-serif;
-}
+  <div class="mb-6 input-container">
+    <label for="context" class="block mb-2 font-bold">Context:</label>
+    <div class="relative">
+      <textarea id="context" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded" maxlength="15000"></textarea>
+      <div id="character-count" class="character-count absolute bottom-2 right-2 px-2 py-1 text-sm text-gray-600 bg-gray-200 rounded"></div>
+    </div>
+    <div class="customization-container mt-2">
+      <select id="tone-select" class="customization-select">
+        <option value="standard">Standard</option>
+        <option value="friendly">Friendly</option>
+        <option value="formal">Formal</option>
+      </select>
+      <select id="length-select" class="customization-select">
+        <option value="normal">Normal</option>
+        <option value="short">Short</option>
+        <option value="long">Long</option>
+      </select>
+    </div>
+  </div>
+</div>
 
-input,
-textarea,
+<div class="button-container">
+  <button id="generate-btn" class="mr-4">Generate Note</button>
+  <button id="copy-btn">Copy to Clipboard</button>
+</div>
+    
+    <div id="note-output" class="mt-8">
+      <h2 class="text-xl font-bold mb-4">Generated Note:</h2>
+      <div id="note-content" class="cornell-notes">
+        <div class="cornell-notes-left">
+          <div class="cue column">
+            <div class="column-header">
+              <h3>CUE</h3>
+              <button class="copy-btn" data-target="cue-content">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <ul id="cue-content" contenteditable="true"></ul>
+            <div class="statistics">
+              <div class="statistic">
+                <span class="label">Reduced Words</span>
+                <span class="value" id="reduced-words">0</span>
+              </div>
+              <div class="statistic">
+                <span class="label">Sentences</span>
+                <span class="value" id="sentence-count">0</span>
+              </div>
+              <div class="statistic">
+                <span class="label">Read time</span>
+                <span class="value" id="read-time">00:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cornell-notes-right">
+          <div class="notes column">
+            <div class="column-header">
+              <h3>NOTES</h3>
+              <button class="copy-btn" data-target="notes-content">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div id="notes-content" contenteditable="true"></div>
+          </div>
+          <div class="summary column">
+            <div class="column-header">
+              <h3>SUMMARY</h3>
+              <button class="copy-btn" data-target="summary-content">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <p id="summary-content" contenteditable="true"></p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-#note-content {
-  font-family: 'Lora', serif;
-}
+  <div id="loading-spinner" class="hidden fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+    <div class="spinner"></div>
+  </div>
 
-.column-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-  border-radius: 80%;
-  -webkit-border-radius: 80%;
-  -moz-border-radius: 80%;
-  -ms-border-radius: 80%;
-  -o-border-radius: 80%;
-}
-
-.copy-btn {
-  background-color:  rgb(55 65 81);
-  border: none;
-  color: rgb(3 166 120);
-  width: 30px;
-  height: 30px;
-  border-radius: 20%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  -webkit-border-radius: 20%;
-  -moz-border-radius: 20%;
-  -ms-border-radius: 20%;
-  -o-border-radius: 20%;
-}
-
-.copy-btn:hover {
-  background-color:  rgb(55 65 81);
-}
-
-.copy-btn i {
-  font-size: 16px;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 20px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 16px;
-  width: 16px;
-  left: 2px;
-  bottom: 2px;
-  background-color: rgb(3 166 120);
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-.input-container label {
-  color: #9ba2ae;
-}
-
-.input-container input,
-.input-container textarea {
-  background-color: rgb(30 41 59);
-  color: #9ba2ae;
-  border-color: rgb(51 65 85);
-  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-
-.character-count {
-  font-size: 0.75rem;
-  color: #d1d5db;
-  background-color: rgb(30 41 59);
-  border-radius: 0.5rem;
-  padding: 0.25rem 0.5rem;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-button {
-  border-radius: 0.375rem;
-  padding: 0.625rem 1rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.5;
-  border: 1px solid;
-  border-color: rgb(55 65 81);
-  background-color: rgb(27 31 41);
-  color: rgb(3 166 120);
-  transition-duration: 0.15s;
-  transition-property: color, background-color, border-color, box-shadow, transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: rgb(55 65 81);
-  color: rgb(3 166 120);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.column {
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-.word {
-  opacity: 0;
-  animation: fadeIn 0.5s ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-body {
-  background-color: #1B1F29;
-  color: #9ba2ae;
-}
-
-.column {
-  background-color: #1B1F29;
-  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 5px;
-  margin-bottom: 20px;
-}
-
-input,
-textarea {
-  background-color: #1B1F29;
-  color: #9ba2ae;
-}
-
-.hidden {
-  display: none;
-}
-
-.spinner {
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid rgb(3 166 120);
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-}
-  
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-#note-content {
-  white-space: pre-wrap;
-}
-
-.cornell-notes {
-  display: flex;
-  gap: 20px;
-}
-
-.cornell-notes-left {
-  flex: 1;
-}
-
-.cornell-notes-right {
-  flex: 2;
-}
-
-.cue ul {
-  list-style-type: disc;
-  margin-left: 20px;
-}
-
-.notes h4 {
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-.notes ul {
-  list-style-type: disc;
-  margin-left: 20px;
-}
-
-.word {
-  opacity: 0;
-  animation: fadeIn 0.5s ease-in-out forwards;
-}
-
-.statistics {
-  display: grid;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid rgb(55, 65, 81);
-  background-color: rgb(27, 31, 41);
-  margin-top: 1rem;
-}
-
-.statistic {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.statistic .label {
-  color: #a1a1aa;
-  font-size: 0.875rem;
-}
-
-.statistic .value {
-  color: #9ba2ae;
-  font-size: 1rem;
-  font-weight: bold;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/langchain/dist/langchain.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
