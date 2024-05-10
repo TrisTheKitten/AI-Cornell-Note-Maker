@@ -33,7 +33,7 @@ async function generateNote() {
   Please format the response as follows:
 
 -USE ONLY SIMPLE ENGLISH WORDS AND BULLET POINTS
--please don't include analogies in your notes )
+-please don't include analogies in your notes
 
 Cues:
 - [Bullet points for key topics or questions]
@@ -61,19 +61,19 @@ Summary:
       toneInstruction = 'Please use a formal and academic tone in the notes.';
       break;
     default:
-      toneInstruction = '';
+      toneInstruction = 'Please use a standard tone in the notes.';
   }
 
   let lengthInstruction = '';
   switch (length) {
     case 'short':
-      lengthInstruction = 'Please keep the notes concise and straight to the point.';
+      lengthInstruction = 'Please keep the notes concise and focus on the key points.';
       break;
     case 'long':
-      lengthInstruction = 'Please provide detailed and comprehensive notes.';
+      lengthInstruction = 'Please provide detailed and comprehensive notes, covering all the important details.';
       break;
     default:
-      lengthInstruction = '';
+      lengthInstruction = 'Please provide notes of normal length, covering the main points and relevant details.';
   }
 
   const prompt = `${context}
@@ -197,6 +197,10 @@ function displayNote(note) {
           } else {
             lastElement.appendChild(listItem);
           }
+        } else {
+          const paragraph = document.createElement('p');
+          paragraph.textContent = line.trim();
+          notesContent.appendChild(paragraph);
         }
       } else if (currentSection === 'summary') {
         summaryContent.textContent += line.trim() + ' ';
