@@ -120,7 +120,7 @@ Repeat this format for all questions.`;
  
         const match = correctOptionLine.match(/Correct answer:\s*([A-D])/i);
         if (match) {
-          const correctOptionLetter = match[1].toUpperCase(); // Ensure it's uppercase
+          const correctOptionLetter = match[1].toUpperCase();
           correctAnswers.push(correctOptionLetter);
           addQuestionToDOM(questionText, options);
         } else {
@@ -147,8 +147,7 @@ Repeat this format for all questions.`;
       const optionInput = document.createElement('input');
       optionInput.type = 'radio';
       optionInput.name = `question-${mcqContent.childElementCount}`;
-      optionInput.value = option.slice(0, 1).toUpperCase(); // Ensure it's uppercase
-
+      optionInput.value = option.slice(0, 1).toUpperCase();
       optionLabel.appendChild(optionInput);
       optionLabel.appendChild(document.createTextNode(option));
 
