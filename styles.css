@@ -169,6 +169,10 @@ button:hover {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  margin: 1rem 0;
+  border-radius: 8px;
+  resize: both;
+  overflow: auto;
 }
 
 .word {
@@ -289,6 +293,140 @@ textarea {
   color: #9ba2ae;
   font-size: 1rem;
   font-weight: bold;
+}
+
+/* MCQ output */
+#mcq-output {
+  margin-top: 2rem;
+}
+
+#mcq-output h2 {
+  font-family: 'Rubik', sans-serif;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+#mcq-content {
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+.mcq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.question {
+  box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.question p {
+  font-family: 'Rubik', sans-serif;
+  color: #e0e0e0;
+  margin-bottom: 10px;
+}
+
+.question p, .option {
+  color: #e0e0e0;
+}
+
+.option {
+  display: block;
+  margin-bottom: 5px;
+  font-family: 'Lora', serif;
+  color: #9ba2ae;
+}
+
+#mcq-content .option input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+#answers-output {
+  margin-top: 2rem;
+}
+
+#answers-output h2 {
+  font-family: 'Rubik', sans-serif;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+#answers-content {
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.question p, .option {
+  color: #e0e0e0;
+}
+
+.answer {
+  background-color: rgb(55, 65, 81);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 8px;
+  color: #e0e0e0;
+}
+
+.answer.correct {
+  color: rgb(3 166 120);
+}
+
+.answer.wrong {
+  color:   rgb(3 166 120);
+}
+
+/* Spinner */
+#loading-spinner {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#loading-spinner .spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #007bff;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Horizontal listboxes */
+.mb-4 select {
+  appearance: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: rgb(55 65 81);
+  color:rgb(3 166 120);
+  cursor: pointer;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.hidden {
+  display: none;
 }
 
 @keyframes fadeIn {
