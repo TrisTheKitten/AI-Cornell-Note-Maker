@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Cornell Notes Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Poppins:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">AI Cornell Notes Generator</h1>
+    <div class="button-container mb-4">
+      <button id="back-btn" class="mr-4">Back to Main Menu</button>
+    </div>
+    <div id="loading-spinner" class="hidden fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+      <div class="spinner"></div>
+    </div>
+    <div class="mb-6 input-container">
+      <label for="context" class="block mb-2 font-bold">Context:</label>
+      <div class="relative">
+        <textarea id="context" rows="6" class="w-full px-4 py-2 border border-gray-300 rounded" maxlength="15000"></textarea>
+        <div id="character-count" class="character-count absolute bottom-2 right-2 px-2 py-1 text-sm text-gray-600 bg-gray-200 rounded"></div>
+      </div>
+    </div>
+    <div class="customization-container mt-2">
+      <select id="tone-select" class="customization-select">
+        <option value="standard">Standard</option>
+        <option value="friendly">Friendly</option>
+        <option value="formal">Formal</option>
+      </select>
+      <select id="length-select" class="customization-select">
+        <option value="normal">Normal</option>
+        <option value="short">Short</option>
+        <option value="long">Long</option>
+      </select>
+    </div>
+    <div class="button-container mb-4">
+      <button id="generate-note-btn" class="mr-4">Generate</button>
+    </div>
+    <div id="note-output" class="mt-8">
+      <h2 class="text-xl font-bold mb-4">Generated Note:</h2>
+      <div id="note-content" class="cornell-notes">
+        <div class="cornell-notes-left">
+          <div class="cue column">
+            <div class="column-header">
+              <h3>CUE</h3>
+              <button class="copy-btn" data-target="cue-content">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <ul id="cue-content" contenteditable="true"></ul>
+            <div class="statistics">
+              <div class="statistic">
+                <span class="label">Reduced Words</span>
+                <span class="value" id="reduced-words">0</span>
+              </div>
+              <div class="statistic">
+                <span class="label">Sentences</span>
+                <span class="value" id="sentence-count">0</span>
+              </div>
+              <div class="statistic">
+                <span class="label">Read time</span>
+                <span class="value" id="read-time">00:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cornell-notes-right">
+          <div class="notes column">
+            <div class="column-header">
+              <h3>NOTES</h3>
+              <button class="copy-btn" data-target="notes-content">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <div id="notes-content" contenteditable="true"></div>
+          </div>
+          <div class="summary column">
+            <div class="column-header">
+              <h3>SUMMARY</h3>
+              <button class="copy-btn" data-target="summary-content">
+                <i class="fas fa-copy"></i>
+              </button>
+            </div>
+            <p id="summary-content" contenteditable="true"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="loading-spinner" class="hidden fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
+    <div class="spinner"></div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="js/ErrorHandling.js"></script>
+  <script src="js/notes.js"></script>
+</body>
+</html>
