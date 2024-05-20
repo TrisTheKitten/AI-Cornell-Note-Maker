@@ -58,8 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const prompt = `${context}
 
-Please format the response exactly as follows:
-
 Generate ${numQuestions} multiple choice questions based on the given context. The questions should be ${difficultyInstructions[difficulty]} and have a ${tonalityInstructions[tonality]}. Each question should have exactly 4 options labeled A, B, C, and D, with one correct answer. Format the output as follows:
 Question 1: [Question text]
 A. [Option 1]
