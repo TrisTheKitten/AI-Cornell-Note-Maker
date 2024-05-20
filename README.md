@@ -14,3 +14,10 @@ This web application leverages the power of GPT-3.5 Turbo to generate Cornell no
 
 - Access the app directly through this link: https://ai-cornell-note-maker.vercel.app
 - Alternatively, clone the repository and run it locally.
+
+
+
+**Update Logs**
+
+* Added multiple-choice question generation.
+* Added flashcards generation.
