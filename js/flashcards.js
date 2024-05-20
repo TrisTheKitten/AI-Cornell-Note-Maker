@@ -58,8 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
       };
   
       const prompt = `${context}
-Please format the response as follows:
-
   Generate ${numCards} flashcards based on the provided context. The flashcards should be of ${difficultyInstructions[difficulty]} and have a ${tonalityInstructions[tonality]}. Format the output as follows:
   Front: [Question text]
   ack: [Answer text(Answer should be the key point of the question, include only main points, and be concise)]`;
