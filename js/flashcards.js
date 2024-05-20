@@ -62,7 +62,7 @@ Please format the response as follows:
 
   Generate ${numCards} flashcards based on the provided context. The flashcards should be of ${difficultyInstructions[difficulty]} and have a ${tonalityInstructions[tonality]}. Format the output as follows:
   Front: [Question text]
-  Back: [Answer text(Answer should be the key point of the question, not too long, not too short, include main points, and be concise)]`;
+  ack: [Answer text(Answer should be the key point of the question, include only main points, and be concise)]`;
   
       try {
         const response = await axios.post(
