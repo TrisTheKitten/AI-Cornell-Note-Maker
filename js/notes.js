@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const characterCount = document.getElementById('character-count');
   const toneSelect = document.getElementById('tone-select');
   const lengthSelect = document.getElementById('length-select');
+  const notification = document.getElementById('notification');
 
   if (contextInput) {
     contextInput.addEventListener('input', updateCharacterCount);
@@ -43,12 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function generateNote(context, tone, length) {
-    if (!apiKey || !context) {
-      alert('API key or context is missing. Please go back to the main menu and provide the required inputs.');
-      return;
-    }
-
     loadingSpinner.classList.remove('hidden');
+    showNotification('Generating notes...', 'info');
 
     const toneInstructions = {
       standard: 'Use a neutral and professional tone.',
@@ -63,10 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const formatInstructions = `
-      Please format the response as follows:
-
-      - USE ONLY SIMPLE ENGLISH WORDS AND BULLET POINTS
-      - Please don't include analogies in your notes
+      Please format the response exactly as follows:
 
       Cues:
       - [Bullet points for key topics or questions]
@@ -121,12 +115,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const generatedNote = response.data.choices[0].message.content;
       displayNote(generatedNote);
+      showNotification('Notes generated successfully!', 'success');
     } catch (error) {
-      console.error('Error generating note:', error);
       handleError(error);
+    } finally {
+      loadingSpinner.classList.add('hidden');
     }
-
-    loadingSpinner.classList.add('hidden');
   }
 
   function displayNote(note) {
@@ -224,8 +218,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function handleError(error) {
-    console.error('Error:', error);
-    alert('An error occurred. Please try again.');
-    loadingSpinner.classList.add('hidden');
+    console.error('Error generating notes:', error);
+    showNotification('Error generating notes. Please try again.', 'error');
+  }
+
+  function showNotification(message, type) {
+    notification.textContent = message;
+    notification.className = `fixed top-0 left-0 right-0 p-4 text-white text-center ${getNotificationClass(type)}`;
+    notification.classList.remove('hidden');
+
+    setTimeout(() => {
+      notification.classList.add('hidden');
+    }, 3000);
+  }
+
+  function getNotificationClass(type) {
+    switch (type) {
+      case 'info':
+        return 'bg-green-500';
+      case 'success':
+        return 'bg-green-500';
+      case 'error':
+        return 'bg-red-500';
+      default:
+        return 'bg-green-500';
+    }
   }
 });

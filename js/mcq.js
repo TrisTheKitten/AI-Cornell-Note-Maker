@@ -10,13 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const tonalitySelect = document.getElementById('tonality');
   const loadingSpinner = document.getElementById('loading-spinner');
   const submitMcqBtn = document.getElementById('submit-mcq-btn');
+  const notification = document.getElementById('notification');
   let correctAnswers = [];
 
   backBtn.addEventListener('click', () => {
     window.location.href = 'index.html';
   });
 
-  
   submitMcqBtn.addEventListener('click', () => {
     checkAnswers();
   });
@@ -41,7 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    loadingSpinner.classList.remove('hidden'); // Show spinner
+    loadingSpinner.classList.remove('hidden');
+    showNotification('Generating MCQs...', 'info');
 
     const difficultyInstructions = {
       easy: 'The questions should be simple and straightforward.',
@@ -56,6 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const prompt = `${context}
+
+Please format the response exactly as follows:
 
 Generate ${numQuestions} multiple choice questions based on the given context. The questions should be ${difficultyInstructions[difficulty]} and have a ${tonalityInstructions[tonality]}. Each question should have exactly 4 options labeled A, B, C, and D, with one correct answer. Format the output as follows:
 Question 1: [Question text]
@@ -96,12 +99,12 @@ Repeat this format for all questions.`;
 
       const generatedMCQs = response.data.choices[0].message.content.trim();
       displayMCQs(generatedMCQs);
+      showNotification('MCQs generated successfully!', 'success');
     } catch (error) {
-      console.error('Error generating MCQs:', error);
       handleError(error);
+    } finally {
+      loadingSpinner.classList.add('hidden');
     }
-
-    loadingSpinner.classList.add('hidden'); 
   }
 
   function displayMCQs(mcqs) {
@@ -117,7 +120,6 @@ Repeat this format for all questions.`;
         const options = lines.slice(1, lines.length - 1);
         const correctOptionLine = lines[lines.length - 1];
 
- 
         const match = correctOptionLine.match(/Correct answer:\s*([A-D])/i);
         if (match) {
           const correctOptionLetter = match[1].toUpperCase();
@@ -148,6 +150,7 @@ Repeat this format for all questions.`;
       optionInput.type = 'radio';
       optionInput.name = `question-${mcqContent.childElementCount}`;
       optionInput.value = option.slice(0, 1).toUpperCase();
+
       optionLabel.appendChild(optionInput);
       optionLabel.appendChild(document.createTextNode(option));
 
@@ -201,8 +204,30 @@ Repeat this format for all questions.`;
   }
 
   function handleError(error) {
-    console.error('Error:', error);
-    alert('An error occurred. Please try again.');
-    loadingSpinner.classList.add('hidden'); 
+    console.error('Error generating MCQs:', error);
+    showNotification('Error generating MCQs. Please try again.', 'error');
+  }
+
+  function showNotification(message, type) {
+    notification.textContent = message;
+    notification.className = `fixed top-0 left-0 right-0 p-4 text-white text-center ${getNotificationClass(type)}`;
+    notification.classList.remove('hidden');
+
+    setTimeout(() => {
+      notification.classList.add('hidden');
+    }, 3000);
+  }
+
+  function getNotificationClass(type) {
+    switch (type) {
+      case 'info':
+        return 'bg-green-500';
+      case 'success':
+        return 'bg-green-500';
+      case 'error':
+        return 'bg-red-500';
+      default:
+        return 'bg-green-500';
+    }
   }
 });

@@ -17,6 +17,8 @@ generateBtn.addEventListener('click', () => {
       window.location.href = 'notes.html';
     } else if (outputType === 'mcq') {
       window.location.href = 'mcq.html';
+    } else if (outputType === 'flashcards') {
+      window.location.href = 'flashcards.html';
     }
   }
 });
