@@ -6,18 +6,19 @@
   <title>AI Cornell Notes Generator</title>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&family=Poppins:wght@400;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
   <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold mb-6">AI Cornell Notes Generator</h1>
     <div class="button-container mb-4">
-      <button id="back-btn" class="mr-4">Back to Main Menu</button>
+      <button id="back-btn" class="mr-4 text-white px-4 py-2 rounded">Back to Main Menu</button>
     </div>
     <div id="loading-spinner" class="hidden fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
       <div class="spinner"></div>
     </div>
+    <div id="notification" class="fixed top-0 left-0 right-0 p-4 bg-blue-500 text-white text-center hidden"></div>
     <div class="mb-6 input-container">
       <label for="context" class="block mb-2 font-bold">Context:</label>
       <div class="relative">
@@ -38,7 +39,7 @@
       </select>
     </div>
     <div class="button-container mb-4">
-      <button id="generate-note-btn" class="mr-4">Generate</button>
+      <button id="generate-note-btn" class="mr-4 bg text-white px-4 py-2 rounded">Generate</button>
     </div>
     <div id="note-output" class="mt-8">
       <h2 class="text-xl font-bold mb-4">Generated Note:</h2>
