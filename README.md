@@ -21,3 +21,4 @@ This web application leverages the power of GPT-3.5 Turbo to generate Cornell no
 
 * Added multiple-choice question generation.
 * Added flashcards generation.
+* Added mindmap generation. (Still in Alpha stage)
