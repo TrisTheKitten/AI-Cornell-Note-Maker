@@ -19,6 +19,8 @@ generateBtn.addEventListener('click', () => {
       window.location.href = 'mcq.html';
     } else if (outputType === 'flashcards') {
       window.location.href = 'flashcards.html';
+    } else if (outputType === 'mindmap') {
+      window.location.href = 'mindmap.html';
     }
   }
 });
