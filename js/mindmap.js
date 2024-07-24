@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const response = await axios.post(
         'https://api.openai.com/v1/chat/completions',
         {
-          model: 'gpt-3.5-turbo',
+          model: 'gpt-4o-mini-2024-07-18',
           messages: [
             {
               role: 'system',
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         font: {
           color: '#ffffff',
-          size: 14,
+          size: 24, 
           face: 'Arial',
           strokeWidth: 0,
           strokeColor: '#ffffff'
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
           right: 10
         },
         widthConstraint: {
-          maximum: 200
+          maximum: 400 
         }
       }))
     );
@@ -178,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         }))
     );
-  
 
     const container = document.getElementById('mindmap-container');
     const data = {
@@ -197,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
       nodes: {
         shape: 'box',
         font: {
-          size: 50,
+          size: 24, 
         }
       },
       edges: {
@@ -214,7 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
       physics: {
         enabled: true,
         barnesHut: {
-          gravitationalConstant: -15000,
+          gravitationalConstant: -15000, 
           centralGravity: 0.8,
           springLength: 250,
           springConstant: 0.04,
