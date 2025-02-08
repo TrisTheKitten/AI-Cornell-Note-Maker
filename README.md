@@ -2,7 +2,7 @@
 
 ## GPT4o mini powered Cornell Notes Web App
 
-This web application leverages the power of GPT-3.5 Turbo to generate Cornell notes, a popular note-taking method for effective learning. Built with HTML, Tailwind CSS, and JavaScript, this app provides a user-friendly interface for creating and organizing notes.
+This web application leverages the power of GPT-3.5 Turbo(Now updated to GPT-4o-mini, a model that offers enhanced performance at a more affordable price) to generate Cornell notes, a popular note-taking method for effective learning. Built with HTML, Tailwind CSS, and JavaScript, this app provides a user-friendly interface for creating and organizing notes.
 
 **Features:**
 
