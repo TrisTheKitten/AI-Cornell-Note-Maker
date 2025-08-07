@@ -153,7 +153,7 @@ Repeat this format for all questions.`
             </div>
 
             <div className="space-y-2">
-              {questions.map((q, i) => {
+              {questions.map((_, i) => {
                 const ua = userAnswers[i] ?? 'None'
                 const ca = correctAnswers[i]
                 const correct = ua === ca
